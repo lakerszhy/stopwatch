@@ -80,7 +80,7 @@ class _TextMark extends StatelessWidget {
       transform: Matrix4.identity()
         ..translate(-_width / 2, -_height / 2, 0.0)
         ..rotateZ(pi * 2 * value / 60 + pi)
-        ..translate(0.0, radius - 34, 0.0)
+        ..translate(0.0, radius - 36, 0.0)
         ..rotateZ(pi - 2 * pi * value / 60),
       child: SizedBox(
         width: _width,
@@ -89,7 +89,7 @@ class _TextMark extends StatelessWidget {
           child: Text(
             value.toString(),
             style: const TextStyle(
-              fontSize: 24,
+              fontSize: 26,
               fontWeight: FontWeight.w500,
             ),
           ),

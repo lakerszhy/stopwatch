@@ -18,7 +18,7 @@ class ElapsedTimeText extends StatelessWidget {
             state.totalElapsed.toText(),
             textAlign: TextAlign.center,
             style: const TextStyle(
-              fontSize: 38,
+              fontSize: 22,
               fontFeatures: [FontFeature.tabularFigures()],
             ),
           ),
