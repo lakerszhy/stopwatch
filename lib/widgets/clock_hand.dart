@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stopwatch/blocs/stopwatch/stopwatch_cubit.dart';
+import 'package:stopwatch/entities/entities.dart';
 
 class ClockHand extends StatelessWidget {
   final double radius;
@@ -21,7 +22,7 @@ class ClockHand extends StatelessWidget {
   Widget build(BuildContext context) {
     return Positioned(
       left: radius,
-      child: BlocBuilder<StopwatchCubit, StopwatchState>(
+      child: BlocBuilder<StopwatchCubit, Lap>(
         builder: (context, state) {
           return Transform(
             alignment: Alignment.bottomCenter,

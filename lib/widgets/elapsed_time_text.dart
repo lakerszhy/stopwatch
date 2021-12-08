@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stopwatch/blocs/stopwatch/stopwatch_cubit.dart';
+import 'package:stopwatch/entities/entities.dart';
 import 'package:stopwatch/extensions/duration_extension.dart';
 
 class ElapsedTimeText extends StatelessWidget {
@@ -10,7 +11,7 @@ class ElapsedTimeText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<StopwatchCubit, StopwatchState>(
+    return BlocBuilder<StopwatchCubit, Lap>(
       builder: (context, state) {
         return Text(
           state.totalElapsed.toText(),

@@ -5,3 +5,4 @@ export 'action_button.dart';
 export 'reset_lap_button.dart';
 export 'elapsed_time_text.dart';
 export 'page_view_dots.dart';
+export 'laps_section.dart';

@@ -1,17 +1,17 @@
-part of 'stopwatch_cubit.dart';
+import 'package:equatable/equatable.dart';
 
-class StopwatchState extends Equatable {
+class Lap extends Equatable {
   final Duration previouslyElapsed;
   final Duration currentlyElapsed;
   final bool isRunning;
 
-  const StopwatchState({
+  const Lap._({
     required this.previouslyElapsed,
     required this.currentlyElapsed,
     required this.isRunning,
   });
 
-  factory StopwatchState.initial() => const StopwatchState(
+  factory Lap.initial() => const Lap._(
         previouslyElapsed: Duration.zero,
         currentlyElapsed: Duration.zero,
         isRunning: false,
@@ -19,19 +19,33 @@ class StopwatchState extends Equatable {
 
   Duration get totalElapsed => previouslyElapsed + currentlyElapsed;
 
+  Lap toggle() {
+    if (isRunning) {
+      return copyWith(
+        isRunning: false,
+        currentlyElapsed: Duration.zero,
+        previouslyElapsed: previouslyElapsed + currentlyElapsed,
+      );
+    } else {
+      return copyWith(isRunning: true);
+    }
+  }
+
+  Lap elapse(Duration elapsed) => copyWith(currentlyElapsed: elapsed);
+
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         previouslyElapsed,
         currentlyElapsed,
         isRunning,
       ];
 
-  StopwatchState copyWith({
+  Lap copyWith({
     Duration? previouslyElapsed,
     Duration? currentlyElapsed,
     bool? isRunning,
   }) {
-    return StopwatchState(
+    return Lap._(
       previouslyElapsed: previouslyElapsed ?? this.previouslyElapsed,
       currentlyElapsed: currentlyElapsed ?? this.currentlyElapsed,
       isRunning: isRunning ?? this.isRunning,

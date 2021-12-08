@@ -43,7 +43,7 @@ class _StopwatchPageState extends State<StopwatchPage>
           children: [
             Padding(
               padding: EdgeInsets.only(
-                top: MediaQuery.of(context).padding.top,
+                top: MediaQuery.of(context).padding.top + 16,
               ),
               child: AspectRatio(
                 aspectRatio: 0.90,
@@ -66,7 +66,7 @@ class _StopwatchPageState extends State<StopwatchPage>
               ),
             ),
             const Divider(height: 32),
-            Expanded(child: Container()),
+            const Expanded(child: LapsSection()),
           ],
         ),
       ),
