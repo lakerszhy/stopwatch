@@ -12,15 +12,12 @@ class ElapsedTimeText extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<StopwatchCubit, StopwatchState>(
       builder: (context, state) {
-        return SizedBox(
-          width: double.infinity,
-          child: Text(
-            state.totalElapsed.toText(),
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 22,
-              fontFeatures: [FontFeature.tabularFigures()],
-            ),
+        return Text(
+          state.totalElapsed.toText(),
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontSize: 22,
+            fontFeatures: [FontFeature.tabularFigures()],
           ),
         );
       },

@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+const _ticksCount = 300;
+
 class ClockMarkers extends StatelessWidget {
   final double radius;
 
@@ -11,7 +13,7 @@ class ClockMarkers extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        for (var i = 0; i < 60; i++)
+        for (var i = 0; i < _ticksCount; i++)
           Positioned(
             left: radius,
             top: radius,
@@ -33,9 +35,9 @@ class _TickMarker extends StatelessWidget {
   final double radius;
 
   final _width = 2.0;
-  final _height = 14.0;
 
-  Color? get _color => seconds % 5 == 0 ? Colors.white : Colors.grey[700];
+  Color? get _color => seconds % 25 == 0 ? Colors.white : Colors.grey[700];
+  double get _height => seconds % 5 == 0 ? 14 : 8;
 
   const _TickMarker({
     Key? key,
@@ -49,7 +51,7 @@ class _TickMarker extends StatelessWidget {
       alignment: Alignment.center,
       transform: Matrix4.identity()
         ..translate(-_width / 2, -_height / 2, 0.0)
-        ..rotateZ(pi * 2 * seconds / 60)
+        ..rotateZ(pi * 2 * seconds / _ticksCount)
         ..translate(0.0, radius - _height / 2, 0.0),
       child: Container(
         width: _width,

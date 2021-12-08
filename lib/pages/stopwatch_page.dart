@@ -1,9 +1,10 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stopwatch/blocs/page_view/page_view_cubit.dart';
 import 'package:stopwatch/blocs/stopwatch/stopwatch_cubit.dart';
+import 'package:stopwatch/pages/clock_dial_view.dart';
+import 'package:stopwatch/pages/clock_digit_view.dart';
 import 'package:stopwatch/widgets/widgets.dart';
 
 class StopwatchPage extends StatefulWidget {
@@ -33,33 +34,35 @@ class _StopwatchPageState extends State<StopwatchPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocProvider.value(
-        value: _stopwatchCubit,
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => PageViewCubit()),
+          BlocProvider.value(value: _stopwatchCubit),
+        ],
         child: Column(
           children: [
-            AspectRatio(
-              aspectRatio: 0.8,
-              child: Container(
-                margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).padding.top + 16,
+            Padding(
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).padding.top,
+              ),
+              child: AspectRatio(
+                aspectRatio: 0.90,
+                child: Stack(
+                  children: [
+                    const _View(),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [
+                          ResetLapButton(),
+                          PageViewDots(),
+                          StartStopButton(),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                child: LayoutBuilder(builder: (context, constraints) {
-                  final radius =
-                      min(constraints.maxWidth, constraints.maxHeight) / 2;
-                  return Stack(
-                    children: [
-                      ClockDial(radius: radius),
-                      const Align(
-                        alignment: Alignment.bottomRight,
-                        child: StartStopButton(),
-                      ),
-                      const Align(
-                        alignment: Alignment.bottomLeft,
-                        child: ResetLapButton(),
-                      ),
-                    ],
-                  );
-                }),
               ),
             ),
             const Divider(height: 32),
@@ -75,5 +78,20 @@ class _StopwatchPageState extends State<StopwatchPage>
     _ticker.dispose();
     _stopwatchCubit.close();
     super.dispose();
+  }
+}
+
+class _View extends StatelessWidget {
+  const _View({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return PageView(
+      onPageChanged: (index) => context.read<PageViewCubit>().select(index),
+      children: const [
+        ClockDigitView(),
+        ClockDialView(),
+      ],
+    );
   }
 }

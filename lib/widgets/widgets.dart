@@ -4,4 +4,4 @@ export 'start_stop_button.dart';
 export 'action_button.dart';
 export 'reset_lap_button.dart';
 export 'elapsed_time_text.dart';
-export 'clock_dial.dart';
+export 'page_view_dots.dart';
